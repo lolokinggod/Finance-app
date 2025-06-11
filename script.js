@@ -192,4 +192,5 @@ document.getElementById('addExpBtn').onclick = ()=>{
 };
 
 // —— initialize UI —— 
+showPage("incomePage");
 updateAuthUI();
