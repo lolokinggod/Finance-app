@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#4CAF50" />
+  <title>Money Tracker App</title>
+
+  <!-- Icons and Styles -->
+  <link rel="apple-touch-icon" href="icon-500.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhjkYtJN8i_qgpna81TD7GU7sywzAXFo0",
+      authDomain: "test-ceb2b.firebaseapp.com",
+      projectId: "test-ceb2b",
+      storageBucket: "test-ceb2b.firebasestorage.app",
+      messagingSenderId: "99988582496",
+      appId: "1:99988582496:web:a4f3a459b5355de1dc9305",
+      measurementId: "G-0WLXZJG443"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+</head>
+
+<body>
+  <!-- Income Page -->
+  <div id="incomePage" class="page">
+    <h1>Income 💰</h1>
+    <div class="circle-wrapper">
+      <div id="savingsCircle" class="circle-progress">
+        <span id="savingsText">0.00%</span>
+      </div>
+    </div>
+    <div class="money-labels">
+      <p id="savedAmountLabel">$0.00 saved</p>
+    </div>
+    <div class="form-group">
+      <input type="date" id="incDate" value="2025-06-11" />
+      <input type="text" id="incReason" placeholder="Reason" />
+      <input type="number" id="incAmount" placeholder="Amount" />
+      <button id="addIncBtn">Add Income</button>
+    </div>
+    <ul id="incList" class="entry-list"></ul>
+  </div>
+
+  <!-- Expenses Page -->
+  <div id="expensePage" class="page">
+    <h1>Expenses 🛒</h1>
+    <div class="circle-wrapper">
+      <div id="funCircle" class="circle-progress">
+        <span id="funText">0.00%</span>
+      </div>
+    </div>
+    <div class="money-labels">
+      <p id="funAmountLabel">$0.00 left</p>
+    </div>
+    <div class="form-group">
+      <input type="date" id="expDate" value="2025-06-11" />
+      <input type="text" id="expReason" placeholder="Reason" />
+      <input type="number" id="expAmount" placeholder="Amount" />
+      <button id="addExpBtn">Add Expense</button>
+    </div>
+    <ul id="expList" class="entry-list"></ul>
+  </div>
+
+  <!-- Account/Login Page -->
+  <div id="accountPage" class="page">
+    <h1 id="acctTitle">Account 👤</h1>
+
+    <!-- Login/Register -->
+    <div id="loginForm" class="form-group">
+      <input type="text" id="userName" placeholder="Email" />
+      <input type="password" id="userPass" placeholder="Password" />
+      <button id="loginBtn">Log In</button>
+      <button id="regBtn">Register</button>
+    </div>
+
+    <!-- Account Info (hidden by default) -->
+    <div id="acctInfo" class="form-group" style="display: none;">
+      <img id="profilePic" src="https://i.imgur.com/UPVcPvC.png" alt="Profile" class="profile-pic" />
+      <p id="acctDisplay" class="acct-username">@username</p>
+
+      <button id="changePassBtn">Change Password</button>
+      <button id="logoutBtn" class="danger">Log Out</button>
+
+      <div class="acct-stats">
+        <p>Total Saved: <span id="totalSaved">$0.00</span></p>
+        <p>Total Spent: <span id="totalSpent">$0.00</span></p>
+      </div>
+
+      <div class="log-section">
+        <h3>Last 5 Incomes</h3>
+        <ul id="lastIncomes" class="entry-list small"></ul>
+
+        <h3>Last 5 Expenses</h3>
+        <ul id="lastExpenses" class="entry-list small"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Page -->
+  <div id="settingsPage" class="page">
+    <h1>Settings ⚙️</h1>
+    <div class="form-group">
+      <label>Currency:</label>
+      <select id="currencySelect">
+        <option value="$">USD ($)</option>
+        <option value="€">EUR (€)</option>
+        <option value="£">GBP (£)</option>
+        <option value="¥">JPY (¥)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Dark Mode:</label>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>Savings Goal ($):</label>
+      <input type="number" id="goalInput" placeholder="6000" />
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav>
+    <button data-target="incomePage">Income</button>
+    <button data-target="expensePage">Expenses</button>
+    <button data-target="accountPage">Account</button>
+    <button data-target="settingsPage">Settings</button>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
